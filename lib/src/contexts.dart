@@ -44,6 +44,22 @@ class _$StatelessElementProxy extends StatelessElement with _$ElementContext {
 mixin _$ElementContext on ComponentElement {
   @override
   void mount(Element parent, newSlot) {
+    _createContext();
+    super.mount(parent, newSlot);
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    _listeners.trigger($End());
+    try {
+      build();
+    } catch (e) {
+      _createContext();
+    }
+  }
+
+  _createContext() {
     _listeners = $Listeners();
     $context = $bind(
       (func) => func(),
@@ -52,14 +68,6 @@ mixin _$ElementContext on ComponentElement {
         $listenAt(_listeners),
       ]),
     );
-    super.mount(parent, newSlot);
-  }
-
-  @override
-  void reassemble() {
-    _listeners.trigger($End());
-    _listeners = $Listeners();
-    super.reassemble();
   }
 
   @override
