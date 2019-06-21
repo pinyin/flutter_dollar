@@ -21,7 +21,7 @@ void main() {
         var runCount = 0;
         final func = $bind((Iterable deps) {
           return $memo(() => ++runCount, deps);
-        }, (_) {});
+        }, $emptyHandler);
         expect(func([1, 2]), 1);
         expect(func([1, 2]), 1);
         expect(func([1, 2, 3]), 2);
