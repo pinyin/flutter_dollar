@@ -89,17 +89,18 @@ void runTest(Widget widget(Widget builder(BuildContext context), Key key)) {
     $Var<bool> buildInner;
     await tester.pumpWidget(widget((context) {
       buildInner = $var(() => true);
-      if (buildInner.value)
+      if (buildInner.value) {
         return widget((_) {
           final cursor = $var(() => 'inner');
           return Text(cursor.value, textDirection: TextDirection.ltr);
         }, Key('inner'));
-      else
+      } else {
         return widget((_) {
           $var(() => 1);
           final cursor = $var(() => 'outer');
           return Text(cursor.value, textDirection: TextDirection.ltr);
         }, Key('outer'));
+      }
     }, Key('')));
     expect(find.text('inner'), findsOneWidget);
     buildInner.value = false;

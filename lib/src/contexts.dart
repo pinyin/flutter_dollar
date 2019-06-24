@@ -31,14 +31,14 @@ class $Subtree extends StatelessWidget with $StatelessWidget {
 class _$StatefulElementProxy extends StatefulElement with _$ElementContext {
   _$StatefulElementProxy($StatefulWidget widget) : super(widget);
 
-  Widget build() => $context(super.build);
+  Widget build() => $unbind(() => buildInContext(super.build));
 }
 
 class _$StatelessElementProxy extends StatelessElement with _$ElementContext {
   _$StatelessElementProxy($StatelessWidget widget) : super(widget);
 
   @override
-  Widget build() => $context(super.build);
+  Widget build() => $unbind(() => buildInContext(super.build));
 }
 
 mixin _$ElementContext on ComponentElement {
@@ -61,7 +61,7 @@ mixin _$ElementContext on ComponentElement {
 
   _createContext() {
     _listeners = $Listeners();
-    $context = $bind(
+    buildInContext = $bind(
       (func) => func(),
       $combineHandlers([
         $onUpdateVar((_) => markNeedsBuild()),
@@ -77,5 +77,5 @@ mixin _$ElementContext on ComponentElement {
   }
 
   $Listeners _listeners;
-  Widget Function(Widget Function()) $context;
+  Widget Function(Widget Function()) buildInContext;
 }
