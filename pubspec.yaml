@@ -11,7 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   collection: ^1.14.11
-  dollar: ^0.2.0
+  dollar:
+    path: ../dollar
 
 dev_dependencies:
   flutter_test:
